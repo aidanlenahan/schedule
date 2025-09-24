@@ -42,6 +42,7 @@ body {
 .timetable {
 	color: #701e20;
 	font-size: 34px;
+}
 .current-period td {
 	font-weight: bold;
 }

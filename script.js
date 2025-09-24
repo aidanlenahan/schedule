@@ -1,9 +1,5 @@
-import schedule from './schedule.json' assert { type: 'json' }; 
-
-console.log(schedule);
-
 schedule.forEach(day => {
-  console.log(`${day.date} - ${day.day} - Half Day: ${day.halfDay} - Delayed Opening: ${day.delayedOpening}`);
+  console.log(`${day.date} - ${day.day} - Half Day: ${day.halfday} - Delayed Opening: ${day.delayedOpening}`);
 });
 
 function updateSchedule() {
