@@ -1,0 +1,266 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 15, 2026 at 09:07 PM
+-- Server version: 9.1.0
+-- PHP Version: 8.3.14
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `rbrschedule`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rotatingday`
+--
+
+DROP TABLE IF EXISTS `rotatingday`;
+CREATE TABLE IF NOT EXISTS `rotatingday` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `day` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `times` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `rotatingday`
+--
+
+INSERT INTO `rotatingday` (`id`, `date`, `day`, `times`) VALUES
+(152, '2026-06-05', 'A', 'fullday'),
+(151, '2026-06-04', 'D', 'fullday'),
+(150, '2026-06-03', 'C', 'fullday'),
+(149, '2026-06-02', 'B', 'fullday'),
+(148, '2026-06-01', 'A', 'fullday'),
+(147, '2026-05-29', 'D', 'fullday'),
+(146, '2026-05-28', 'C', 'fullday'),
+(145, '2026-05-27', 'B', 'fullday'),
+(144, '2026-05-26', 'A', 'fullday'),
+(143, '2026-05-22', 'D', 'halfday'),
+(142, '2026-05-21', 'C', 'fullday'),
+(141, '2026-05-20', 'B', 'fullday'),
+(140, '2026-05-19', 'A', 'fullday'),
+(139, '2026-05-18', 'D', 'fullday'),
+(138, '2026-05-15', 'C', 'fullday'),
+(137, '2026-05-14', 'B', 'fullday'),
+(136, '2026-05-13', 'A', 'fullday'),
+(135, '2026-05-12', 'D', 'fullday'),
+(134, '2026-05-11', 'C', 'fullday'),
+(133, '2026-05-08', 'B', 'fullday'),
+(132, '2026-05-07', 'A', 'fullday'),
+(131, '2026-05-06', 'D', 'fullday'),
+(130, '2026-05-05', 'C', 'fullday'),
+(129, '2026-05-04', 'B', 'fullday'),
+(128, '2026-05-01', 'A', 'fullday'),
+(127, '2026-04-30', 'C', 'fullday'),
+(126, '2026-04-29', 'C', 'fullday'),
+(125, '2026-04-28', 'B', 'fullday'),
+(124, '2026-04-27', 'A', 'fullday'),
+(123, '2026-04-24', 'D', 'fullday'),
+(122, '2026-04-23', 'C', 'fullday'),
+(121, '2026-04-22', 'B', 'fullday'),
+(120, '2026-04-21', 'A', 'fullday'),
+(119, '2026-04-20', 'D', 'fullday'),
+(118, '2026-04-17', 'C', 'fullday'),
+(117, '2026-04-16', 'B', 'fullday'),
+(116, '2026-04-15', 'A', 'fullday'),
+(115, '2026-04-14', 'D', 'fullday'),
+(114, '2026-04-13', 'C', 'fullday'),
+(113, '2026-04-02', 'B', 'fullday'),
+(112, '2026-04-01', 'A', 'fullday'),
+(111, '2026-03-31', 'D', 'fullday'),
+(110, '2026-03-30', 'C', 'fullday'),
+(109, '2026-03-27', 'B', 'fullday'),
+(108, '2026-03-26', 'A', 'fullday'),
+(107, '2026-03-25', 'D', 'fullday'),
+(106, '2026-03-24', 'C', 'fullday'),
+(105, '2026-03-23', 'B', 'fullday'),
+(104, '2026-03-20', 'A', 'fullday'),
+(103, '2026-03-19', 'D', 'fullday'),
+(102, '2026-03-18', 'C', 'fullday'),
+(101, '2026-03-17', 'B', 'fullday'),
+(100, '2026-03-16', 'A', 'fullday'),
+(99, '2026-03-13', 'D', 'fullday'),
+(98, '2026-03-12', 'C', 'fullday'),
+(97, '2026-03-11', 'B', 'fullday'),
+(96, '2026-03-10', 'A', 'fullday'),
+(95, '2026-03-09', 'D', 'fullday'),
+(94, '2026-03-06', 'C', 'halfday'),
+(93, '2026-03-05', 'B', 'fullday'),
+(92, '2026-03-04', 'A', 'fullday'),
+(91, '2026-03-03', 'D', 'fullday'),
+(90, '2026-03-02', 'C', 'fullday'),
+(89, '2026-02-27', 'B', 'fullday'),
+(88, '2026-02-26', 'A', 'fullday'),
+(87, '2026-02-25', 'D', 'fullday'),
+(86, '2026-02-24', 'C', 'fullday'),
+(85, '2026-02-23', 'B', 'fullday'),
+(84, '2026-02-20', 'A', 'fullday'),
+(83, '2026-02-19', 'D', 'fullday'),
+(82, '2026-02-18', 'C', 'fullday'),
+(81, '2026-02-17', 'B', 'fullday'),
+(80, '2026-02-13', 'A', 'halfday'),
+(79, '2026-02-12', 'D', 'fullday'),
+(78, '2026-02-11', 'C', 'fullday'),
+(77, '2026-02-10', 'B', 'fullday'),
+(76, '2026-02-09', 'A', 'fullday'),
+(75, '2026-02-06', 'D', 'fullday'),
+(74, '2026-02-05', 'C', 'fullday'),
+(73, '2026-02-04', 'B', 'fullday'),
+(72, '2026-02-03', 'A', 'fullday'),
+(71, '2026-02-02', 'D', 'fullday'),
+(70, '2026-01-30', 'C', 'fullday'),
+(69, '2026-01-29', 'B', 'fullday'),
+(68, '2026-01-28', 'A', 'fullday'),
+(67, '2026-01-27', 'MIDTERMS', 'testing'),
+(66, '2026-01-26', 'MIDTERMS', 'testing'),
+(65, '2026-01-23', 'Review', 'review'),
+(64, '2026-01-22', 'MIDTERMS', 'testing'),
+(63, '2026-01-21', 'MIDTERMS', 'testing'),
+(62, '2026-01-20', 'Review', 'review'),
+(61, '2026-01-16', 'D', 'fullday'),
+(60, '2026-01-15', 'C', 'fullday'),
+(59, '2026-01-14', 'B', 'fullday'),
+(58, '2026-01-13', 'A', 'fullday'),
+(57, '2026-01-12', 'D', 'fullday'),
+(56, '2026-01-09', 'C', 'fullday'),
+(55, '2026-01-08', 'B', 'fullday'),
+(54, '2026-01-07', 'A', 'fullday'),
+(53, '2026-01-06', 'D', 'fullday'),
+(52, '2026-01-05', 'B', 'fullday'),
+(51, '2025-12-23', 'B', 'halfday'),
+(50, '2025-12-22', 'A', 'fullday'),
+(49, '2025-12-19', 'D', 'fullday'),
+(48, '2025-12-18', 'C', 'fullday'),
+(47, '2025-12-17', 'B', 'fullday'),
+(46, '2025-12-16', 'A', 'fullday'),
+(45, '2025-12-15', 'D', 'fullday'),
+(44, '2025-12-12', 'C', 'fullday'),
+(43, '2025-12-11', 'B', 'fullday'),
+(42, '2025-12-10', 'A', 'halfday'),
+(41, '2025-12-09', 'D', 'fullday'),
+(40, '2025-12-08', 'C', 'fullday'),
+(39, '2025-12-05', 'B', 'fullday'),
+(38, '2025-12-04', 'A', 'fullday'),
+(37, '2025-12-03', 'D', 'fullday'),
+(36, '2025-12-02', 'C', 'fullday'),
+(35, '2025-12-01', 'B', 'fullday'),
+(34, '2025-11-26', 'C', 'halfday'),
+(33, '2025-11-25', 'B', 'fullday'),
+(32, '2025-11-24', 'A', 'fullday'),
+(31, '2025-11-21', 'D', 'fullday'),
+(30, '2025-11-20', 'C', 'fullday'),
+(29, '2025-11-19', 'B', 'fullday'),
+(28, '2025-11-18', 'A', 'fullday'),
+(27, '2025-11-17', 'D', 'fullday'),
+(26, '2025-11-14', 'C', 'fullday'),
+(25, '2025-11-13', 'B', 'fullday'),
+(24, '2025-11-12', 'A', 'fullday'),
+(23, '2025-11-11', 'D', 'fullday'),
+(22, '2025-11-10', 'C', 'fullday'),
+(21, '2025-11-05', 'D', 'fullday'),
+(20, '2025-11-04', 'C', 'fullday'),
+(19, '2025-11-03', 'B', 'fullday'),
+(18, '2025-10-31', 'A', 'fullday'),
+(17, '2025-10-30', 'D', 'halfday'),
+(16, '2025-10-29', 'C', 'fullday'),
+(15, '2025-10-28', 'B', 'fullday'),
+(14, '2025-10-27', 'A', 'fullday'),
+(13, '2025-10-24', 'D', 'fullday'),
+(12, '2025-10-23', 'C', 'fullday'),
+(11, '2025-10-22', 'B', 'fullday'),
+(10, '2025-10-21', 'A', 'fullday'),
+(9, '2025-10-20', 'D', 'fullday'),
+(8, '2025-10-17', 'C', '2hr'),
+(7, '2025-10-16', 'B', 'fullday'),
+(6, '2025-10-15', 'A', 'fullday'),
+(5, '2025-10-14', 'D', '2hr'),
+(4, '2025-10-13', 'C', 'fullday'),
+(3, '2025-10-10', 'B', 'fullday'),
+(2, '2025-10-09', 'A', 'fullday'),
+(1, '2025-10-08', 'D', 'fullday'),
+(153, '2026-06-08', 'B', 'fullday'),
+(154, '2026-06-09', 'Review D', 'review'),
+(155, '2026-06-10', 'FINALS', 'testing'),
+(156, '2026-06-11', 'FINALS', 'testing'),
+(157, '2026-06-12', 'Review D', 'review'),
+(158, '2026-06-15', 'FINALS', 'testing'),
+(159, '2026-06-16', 'FINALS', 'testing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rotations`
+--
+
+DROP TABLE IF EXISTS `rotations`;
+CREATE TABLE IF NOT EXISTS `rotations` (
+  `day` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `block1` int NOT NULL,
+  `block2` int NOT NULL,
+  `block3` int NOT NULL,
+  `block4` int NOT NULL,
+  `block5` int NOT NULL,
+  `block6` int NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `rotations`
+--
+
+INSERT INTO `rotations` (`day`, `block1`, `block2`, `block3`, `block4`, `block5`, `block6`) VALUES
+('A', 1, 2, 3, 5, 6, 7),
+('B', 4, 1, 2, 8, 5, 6),
+('C', 3, 4, 1, 7, 8, 5),
+('D', 2, 3, 4, 6, 7, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+DROP TABLE IF EXISTS `schedule`;
+CREATE TABLE IF NOT EXISTS `schedule` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `daytype` varchar(20) NOT NULL,
+  `block1` varchar(20) DEFAULT NULL,
+  `block2` varchar(20) DEFAULT NULL,
+  `block3` varchar(20) DEFAULT NULL,
+  `mod1` varchar(20) DEFAULT NULL,
+  `mod2` varchar(20) DEFAULT NULL,
+  `block4` varchar(20) DEFAULT NULL,
+  `block5` varchar(20) DEFAULT NULL,
+  `block6` varchar(20) DEFAULT NULL,
+  `extra` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `daytype`, `block1`, `block2`, `block3`, `mod1`, `mod2`, `block4`, `block5`, `block6`, `extra`) VALUES
+(1, 'fullday', '7:40 AM - 8:35 AM', '8:39 AM - 9:34 AM', '9:38 AM - 10:31 AM', '10:35 AM - 11:05 AM', '11:05 AM - 11:35 AM', '11:39 AM - 12:32 PM', '12:36 PM - 1:31 PM', '1:35 PM - 2:30 PM', NULL),
+(2, 'halfday', '7:40 AM - 8:16 AM', '8:20 AM - 8:56 AM', '9:00 AM - 9:36 AM', NULL, NULL, '9:40 AM - 10:16 AM', '10:20 AM - 10:56 AM', '11:00 AM - 11:35 AM', NULL),
+(3, '2hr', '9:40 AM - 10:15AM', '10:19 AM - 10:54 AM', '10:58 AM - 11:31 AM', '11:35 AM - 12:05 PM', '12:05 PM - 12:35 PM', '12:39 PM - 1:12 PM', '1:16 PM - 1:51 PM', '1:55 PM - 2:30 PM', NULL),
+(4, 'testing', '7:40 AM - 9:30 AM', '9:30 AM - 11:35 AM', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
