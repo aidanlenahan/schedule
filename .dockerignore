@@ -1,0 +1,3 @@
+# flyctl launch added from .gitignore
+# **/dbconnect.php
+fly.toml

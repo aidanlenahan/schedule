@@ -1,0 +1,9 @@
+# Block any PHP file containing config, secret, or dbconnect in the name
+<FilesMatch "(dbconnect|config|secret|env)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Block all dotfiles (like .env, .git, .htaccess)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
