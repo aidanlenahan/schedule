@@ -1,1 +1,12 @@
 dbconnect.php
+.env
+
+*.log
+*.tmp
+.fly/
+fly.toml
+
+.DS_Store
+*.swp
+*.swo
+*.bak
