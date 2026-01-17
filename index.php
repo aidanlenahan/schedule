@@ -5,8 +5,20 @@ include 'dbconnect.php';
 include 'quotes.php';
 $randomQuote = $quotes[array_rand($quotes)];
 
+// Allow date navigation via URL parameter
+if (isset($_GET['date']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $_GET['date'])) {
+    $today = $_GET['date'];
+} else {
+    $today = date("Y-m-d");
+}
 
-$today = date("Y-m-d");
+// Calculate previous and next dates
+$yesterday = date("Y-m-d", strtotime($today . ' -1 day'));
+$tomorrow = date("Y-m-d", strtotime($today . ' +1 day'));
+
+// Check if viewing today and format the display date
+$isToday = ($today === date("Y-m-d"));
+$displayDate = date("F jS, Y", strtotime($today));
 
 ?>
 <!DOCTYPE html>
@@ -78,6 +90,127 @@ $today = date("Y-m-d");
             font-weight: bold;
             color: #701e20;
             margin: 5px 0 15px 0;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        .schedule-type:hover {
+            opacity: 0.7;
+        }
+        .date-link {
+            color: #701e20;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        .date-link:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+        body.dark-mode .date-link {
+            color: #c94c4c;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        body.dark-mode .modal-content {
+            background-color: #1e1e1e;
+            color: #eee;
+        }
+        .modal-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #701e20;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        body.dark-mode .modal-header {
+            color: #c94c4c;
+        }
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        .modal-body label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #701e20;
+        }
+        body.dark-mode .modal-body label {
+            color: #c94c4c;
+        }
+        .modal-body input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #701e20;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #fff;
+            color: #222;
+        }
+        body.dark-mode .modal-body input[type="date"] {
+            background-color: #2a2a2a;
+            color: #eee;
+            border-color: #c94c4c;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .modal-button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .modal-button.primary {
+            background-color: #701e20;
+            color: #fff;
+        }
+        .modal-button.primary:hover {
+            background-color: #8b2426;
+        }
+        body.dark-mode .modal-button.primary {
+            background-color: #c94c4c;
+        }
+        body.dark-mode .modal-button.primary:hover {
+            background-color: #d65e5e;
+        }
+        .modal-button.secondary {
+            background-color: #ccc;
+            color: #222;
+        }
+        .modal-button.secondary:hover {
+            background-color: #bbb;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         table {
@@ -150,12 +283,38 @@ $today = date("Y-m-d");
             color: #aaa;
         }
         /* image clickable cursor hint */
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
         .image-container img {
             cursor: pointer;
             transition: transform 0.2s ease;
         }
         .image-container img:hover {
             transform: scale(1.05);
+        }
+        .nav-arrow {
+            font-size: 2rem;
+            color: #701e20;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+            user-select: none;
+            font-weight: bold;
+        }
+        .nav-arrow:hover {
+            background-color: rgba(112, 30, 32, 0.1);
+            transform: scale(1.1);
+        }
+        body.dark-mode .nav-arrow {
+            color: #c94c4c;
+        }
+        body.dark-mode .nav-arrow:hover {
+            background-color: rgba(201, 76, 76, 0.2);
         }
 
 
@@ -170,6 +329,48 @@ $today = date("Y-m-d");
         }
         setInterval(updateTime, 1000);
         window.onload = updateTime;
+
+        // Date picker modal functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('dateModal');
+            const scheduleType = document.querySelector('.schedule-type');
+            const closeBtn = document.getElementById('closeModal');
+            const goBtn = document.getElementById('goToDate');
+            const dateInput = document.getElementById('dateInput');
+
+            if (scheduleType) {
+                scheduleType.addEventListener('click', () => {
+                    modal.style.display = 'block';
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            if (goBtn && dateInput) {
+                goBtn.addEventListener('click', () => {
+                    const selectedDate = dateInput.value;
+                    if (selectedDate) {
+                        window.location.href = '?date=' + selectedDate;
+                    }
+                });
+
+                dateInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        goBtn.click();
+                    }
+                });
+            }
+        });
 
         // highlighting functionality
         function parseTimeRange(rangeStr) {
@@ -232,15 +433,38 @@ $today = date("Y-m-d");
     </script>
 </head>
 <body>
+    <!-- Date Picker Modal -->
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Go to Date</div>
+            <div class="modal-body">
+                <label for="dateInput">Select a date:</label>
+                <input type="date" id="dateInput" value="<?php echo $today; ?>">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button primary" id="goToDate">Go</button>
+                <button class="modal-button secondary" id="closeModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <div class="schedule-container">
         <div class="top-bar">
-            <div class="date"><?php echo date("l, F jS, Y"); ?></div>
+            <div class="date">
+                <?php if (!$isToday): ?>
+                    <a href="index.php" class="date-link"><?php echo date("l, F jS, Y"); ?></a>
+                <?php else: ?>
+                    <?php echo date("l, F jS, Y"); ?>
+                <?php endif; ?>
+            </div>
             <div id="time"></div>
         </div>
 
 
         <div class="image-container">
+            <a href="?date=<?php echo $yesterday; ?>" class="nav-arrow">&lt;</a>
             <img src="buc.svg" alt="BUC">
+            <a href="?date=<?php echo $tomorrow; ?>" class="nav-arrow">&gt;</a>
         </div>
 
         <div class="quote"><?php echo $randomQuote; ?></div>
@@ -260,7 +484,7 @@ $today = date("Y-m-d");
                 $day = $rotations->fetch_assoc();
 
                 if ($row["times"] == "fullday") {
-                    echo '<div class="schedule-type">Full Day Schedule</div>';
+                    echo '<div class="schedule-type">Full Day Schedule - ' . $displayDate . '</div>';
                     echo '<table>';
                         echo '<tr><th>Block</th><th>Period</th><th>Time</th></tr>';
                         echo '<tr data-time="' . $rowTimes["block1"] . '"><td>Block 1</td><td>Period ' . $day["block1"] . '</td><td>' . $rowTimes["block1"] .'</td></tr>';
@@ -274,7 +498,7 @@ $today = date("Y-m-d");
                     echo '</table>';
                 }
                 elseif($row["times"] == "halfday") {
-                    echo '<div class="schedule-type">Half Day Schedule</div>';
+                    echo '<div class="schedule-type">Half Day Schedule - ' . $displayDate . '</div>';
                     echo '<table>';
                         echo '<tr><th>Block</th><th>Period</th><th>Time</th></tr>';
                         echo '<tr data-time="' . $rowTimes["block1"] . '"><td>Block 1</td><td>Period ' . $day["block1"] . '</td><td>' . $rowTimes["block1"] .'</td></tr>';
@@ -286,7 +510,7 @@ $today = date("Y-m-d");
                     echo '</table>';
                 }
                 elseif($row["times"] == "2hr") {
-                    echo '<div class="schedule-type">2-Hour Delay Schedule</div>';
+                    echo '<div class="schedule-type">2-Hour Delay Schedule - ' . $displayDate . '</div>';
                     echo '<table>';
                         echo '<tr><th>Block</th><th>Period</th><th>Time</th></tr>';
                         echo '<tr data-time="' . $rowTimes["block1"] . '"><td>Block 1</td><td>Period ' . $day["block1"] . '</td><td>' . $rowTimes["block1"] .'</td></tr>';
@@ -300,7 +524,7 @@ $today = date("Y-m-d");
                     echo '</table>';
                 }
                 elseif($row["times"] == "testing") {
-                    echo '<div class="schedule-type">Testing Schedule</div>';
+                    echo '<div class="schedule-type">Testing Schedule - ' . $displayDate . '</div>';
                     echo '<table>';
                         echo '<tr><th>Block</th><th>Period</th><th>Time</th></tr>';
                         echo '<tr data-time="' . $rowTimes["block1"] . '"><td>Block 1</td><td>Testing Block 1</td><td>' . $rowTimes["block1"] .'</td></tr>';
@@ -308,12 +532,12 @@ $today = date("Y-m-d");
                     echo '</table>';
                 }
                 else {
-                    echo '<div class="schedule-type">No schedule for ' . $today . '</div>';
+                    echo '<div class="schedule-type">No schedule for ' . $displayDate . '</div>';
                 }
             }
         }
         else {
-            echo '<div class="schedule-type">No schedule found for ' . $today . '</div>';
+            echo '<div class="schedule-type">No schedule found for ' . $displayDate . '</div>';
         }
 
         $conn->close();
