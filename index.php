@@ -62,6 +62,13 @@ $displayDate = date("F jS, Y", strtotime($today));
             margin: 0 0 10px 0;
             gap: 15px; /* optional spacing between items */
         }
+        #time {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        #time:hover {
+            opacity: 0.7;
+        }
 
         .image-container {
             width: 10%;
@@ -322,13 +329,38 @@ $displayDate = date("F jS, Y", strtotime($today));
     </style>
     <link rel="icon" href="buc.svg" type="image/svg+xml">
     <script>
+        let useMilitaryTime = localStorage.getItem('militaryTime') === 'true';
+
         function updateTime() {
             const now = new Date();
-            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('time').textContent = now.toLocaleTimeString([], options);
+            let timeString;
+            
+            if (useMilitaryTime) {
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                timeString = `${hours}:${minutes}:${seconds}`;
+            } else {
+                const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                timeString = now.toLocaleTimeString([], options);
+            }
+            
+            document.getElementById('time').textContent = timeString;
         }
+        
         setInterval(updateTime, 1000);
         window.onload = updateTime;
+
+        // Time format toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeElement = document.getElementById('time');
+            
+            timeElement.addEventListener('click', () => {
+                useMilitaryTime = !useMilitaryTime;
+                localStorage.setItem('militaryTime', useMilitaryTime);
+                updateTime();
+            });
+        });
 
         // Date picker modal functionality
         document.addEventListener('DOMContentLoaded', () => {
