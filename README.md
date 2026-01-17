@@ -1,7 +1,7 @@
 # RBR Schedule
 Aidan Lenahan; 10-09-25; Honors Web and Mobile App Development<br><br>
 
-The main branch 
+The 'main' branch of this repository is 
 
 ---
 
