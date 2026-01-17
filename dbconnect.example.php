@@ -1,4 +1,8 @@
 <?php
+/*
+This example dbconnect.php file works perfectly if you remove the '.example' from the filename and change the credentials of fly.io and/or LAMP/WAMP stack
+
+*/
 // Wrapper class to make PDO compatible with mysqli-style methods
 class DatabaseConnection {
     private $connection;
