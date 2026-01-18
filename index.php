@@ -1,5 +1,12 @@
 <?php
 
+// Use user's timezone from cookie, or default to Eastern Time
+if (isset($_COOKIE['user_timezone'])) {
+    date_default_timezone_set($_COOKIE['user_timezone']);
+} else {
+    date_default_timezone_set('America/New_York');
+}
+
 include 'dbconnect.php';
 //quote implementation
 include 'quotes.php';
@@ -329,6 +336,27 @@ $displayDate = date("F jS, Y", strtotime($today));
     </style>
     <link rel="icon" href="buc.svg" type="image/svg+xml">
     <script>
+        // Detect and store user's timezone
+        (function() {
+            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const currentTz = getCookie('user_timezone');
+            
+            if (currentTz !== userTimezone) {
+                document.cookie = `user_timezone=${userTimezone}; path=/; max-age=31536000`; // 1 year
+                // Reload to apply timezone if it changed
+                if (currentTz) {
+                    location.reload();
+                }
+            }
+        })();
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
         let useMilitaryTime = localStorage.getItem('militaryTime') === 'true';
 
         function updateTime() {
