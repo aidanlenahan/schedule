@@ -1,7 +1,7 @@
 # RBR Schedule
 Aidan Lenahan; 10-09-25; Honors Web and Mobile App Development<br><br>
 
-This branch of this repository is the [furnished](https://https://schedule-web.fly.dev/) of the [prototype](https://aidanlenahan.github.io/schedule) version. The furnished version is hosted on [fly.io](https://fly.io) on a shared CPU and 256 MB RAM and uses a postgres and PHP free backend.
+This branch of this repository is the [furnished](https://schedule-web.fly.dev/) of the [prototype](https://aidanlenahan.github.io/schedule) version. The furnished version is hosted on [fly.io](https://fly.io) on a shared CPU and 256 MB RAM and uses a postgres and PHP free backend.
 
 ---
 
